@@ -90,7 +90,11 @@ async function runPost() {
   await saveCache(inputs)
 }
 
-main().catch(error => {
-  console.error(error)
-  setFailed(error)
-})
+// A failed cache download leaves its remaining block requests open, and they
+// keep node alive after `main` settles, so exit with the code `setFailed` set.
+main()
+  .catch(error => {
+    console.error(error)
+    setFailed(error)
+  })
+  .finally(() => process.exit())
