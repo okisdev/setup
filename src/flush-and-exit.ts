@@ -1,7 +1,5 @@
 /**
- * Exits the process once stdout and stderr have drained.
- *
- * Both streams are pipes under the Actions runner, where writes are
+ * stdout and stderr are pipes under the Actions runner, where writes are
  * asynchronous, so a bare `process.exit()` discards whatever is still queued:
  * the workflow command `setFailed` wrote and the error `console.error` printed
  * reach the runner only after the drain.
